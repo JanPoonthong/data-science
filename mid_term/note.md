@@ -273,4 +273,63 @@ temperature_ind.loc[row_to_keep]
 
 ```python
 sns.histplot(data=unemployment, x="2011", bins=20)
+
+unemployment['2012'].min(), unemployment['2012'].max()
+sns.boxplot(data=unemployment, x=unemployment['2012'], y=unemployment['continent'])
+
+unemployment[["2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", \
+"2018", "2019", "2020", "2021"] ].agg(["mean", "std"])
+
+unemployment.groupby('continent')[["2010", "2011", "2012", "2013", "2014", \
+"2015", "2016", "2017", "2018", "2019", "2020", "2021", ]].agg(["mean", "std"])
 ```
+
+![](img7.png)
+
+```python
+unemployment.groupby("continent").agg(
+    mean_rate_2021 = ("2021", "mean"),
+    std_rate_2021= ("2021", "std")
+)
+```
+
+![](img8.png)
+
+```python
+sns.barplot(data=unemployment, x="continent", y="2021")
+
+airline.isna().sum() # print number of missing values.
+
+threshold = len(airline) * 0.05
+col_to_drop = airline.columns[airline.isna().sum() <= threshold]
+airline.dropna(subset=col_to_drop, inplace=True)
+
+airline.groupby("Airline")["Price"].median().to_dict() # output: {'Air Asia': 5192.0, 'Air India': 9443.0}.
+airline["Price"] = airline["Price"].fillna(airline["Airline"].map(a)) # fillna on price by mapping dict(median) of airline.
+
+# Filter the DataFrame for object columns
+non_numeric = airline.select_dtypes("object")
+# Index(['Airline', 'Date_of_Journey', 'Source', 'Destination', 'Route', 'Dep_Time',
+# 'Arrival_Time', 'Duration', 'Total_Stops', 'Additional_Info'], dtype='object')
+
+for col in non_numeric.columns:
+    print(f"Number of unique values in {col} column: ", non_numeric[col].nunique())
+
+duration_category = ["Short", "Medium", "Long"] # For label in the data frame
+short_flights = "0h|1h|2h|3h|4h"
+medium_flights = "5h|6h|7h|8h|9h"
+long_flights = "10h|11h|12h|13h|14h|16h"
+conditions = [
+    (airline["Duration"].str.contains(short_flights)), # Short
+    (airline["Duration"].str.contains(medium_flights)), # Medium
+    (airline["Duration"].str.contains(long_flights)), # Long
+]
+# Duration_Category output: Medium 5000, Short 1000
+airline["Duration_Category"] = np.select(
+    conditions, duration_category, default="Extreme Duration"
+)
+# y-axis -> will be the count of occurrence; by just mentioning x-axis
+sns.countplot(data=airline, x=airline["Duration_Category"])
+```
+
+![](img9.png)
