@@ -333,3 +333,23 @@ sns.countplot(data=airline, x=airline["Duration_Category"])
 ```
 
 ![](img9.png)
+
+```python
+airline["Duration"] = airline["Duration"].str.replace("h", ".")
+airline["Duration"] = airline["Duration"].astype(float) # change type
+
+# x.mean(), x.median()
+airline.groupby("Airline")["Price"].transform(lambda x: x.std())
+
+price_seventy_fifth = airline["Price"].quantile(0.75)
+price_twenty_fifth = airline["Price"].quantile(0.25)
+price_iqr = price_seventy_fifth - price_twenty_fifth
+
+upper = price_seventy_fifth + (1.5 * price_iqr)
+lower = price_twenty_fifth - (1.5 * price_iqr)
+
+airline[(airline["Price"] < lower) | (airline["Price"] > upper)] # outlier
+
+no_outlier = airline[(airline["Price"] > lower) & (airline["Price"] < upper)]
+no_outlier["Price"].describe()
+```
