@@ -353,3 +353,100 @@ airline[(airline["Price"] < lower) | (airline["Price"] > upper)] # outlier
 no_outlier = airline[(airline["Price"] > lower) & (airline["Price"] < upper)]
 no_outlier["Price"].describe()
 ```
+
+```python
+divorce.dtypes # check types
+pd.read_csv("data/h.csv", parse_dates=["date_of_response"],)
+divorce["marriage_date"] = pd.to_datetime(divorce["marriage_date"]) # convert into date type
+divorce["marriage_date"].dt.month # get month; dt.weekday, dt.year
+sns.lineplot(
+    data=divorce, x=divorce["marriage_month"], y=divorce["marriage_duration"]
+)
+sns.pairplot(data=divorce) # many plot
+```
+
+![](img10.png)
+
+```python
+# hue="education_woman" for coloring in sns
+sns.kdeplot(data=divorce, x="marriage_duration", hue="education_man") # cut=0, cumulative=True
+```
+
+![](img11.png)
+
+```python
+sns.pairplot(data=divorce, vars=["income_woman", "marriage_duration"])
+```
+
+![](img12.png)
+
+```python
+salary_rupee_usd["Job_Category"].value_counts()
+```
+
+![](img13.png)
+
+```python
+# check correlation between
+pd.crosstab(salary_rupee_usd["Job_Category"], salary_rupee_usd["Company_Size"])
+```
+
+![](img14.png)
+
+```python
+pd.crosstab(salary_rupee_usd["Job_Category"], salary_rupee_usd["Company_Size"],
+values=salary_rupee_usd["Salary_USD"], aggfunc="mean") # check by salary(mean)
+```
+
+![](img15.png)
+
+```python
+pd.to_datetime(salaries["date_of_response"], format="%d/%m/%Y") # Change format
+```
+
+```python
+sns.heatmap(salaries[["Salary_USD", "Remote_Working_Ratio", "Salary_In_Rupees",\
+                      "month", "weekday"]].corr(), annot=True)
+```
+
+![](img16.png)
+
+```python
+twenty_fifth = salaries["Salary_USD"].quantile(0.25)
+salaries_median = salaries["Salary_USD"].median()
+seventy_fifth = salaries["Salary_USD"].quantile(0.75)
+largest = salaries["Salary_USD"].max()
+
+salary_labels = ["entry", "mid", "senior", "exec"]
+salary_ranges = [0, twenty_fifth, salaries_median, seventy_fifth, largest]
+# bins -> find the range and labels -> labels it with salary_labels 
+salaries["salary_level"] = pd.cut(
+    salaries["Salary_USD"], bins=salary_ranges, labels=salary_labels
+)
+sns.countplot(data=salaries, x="Company_Size", hue="salary_level")
+```
+
+![](img17.png)
+
+```python
+usa_and_gb = salaries[salaries["Employee_Location"].isin(["US", "GB"])]
+
+sns.barplot(data=usa_and_gb, x="Employee_Location", y="Salary_USD")
+```
+
+```python
+data = salaries[salaries["Employee_Location"].isin(["US", "GB"])]
+sns.barplot(data=data, x="Employee_Location", y="Salary_USD")
+```
+
+![](img18.png)
+
+```python
+usa_and_gb = salaries["Employee_Location"].isin(["US", "GB"])
+sns.barplot(
+    data=salaries, x="Company_Size", y="Salary_USD", hue="Employment_Status"
+)
+```
+
+![](img19.png)
+
