@@ -449,3 +449,18 @@ sns.barplot(
 ```
 
 ![](img19.png)
+
+```python
+np.logical_and(brics['area']>8, brics['area']<10)
+np.logical_or(brics['population']>1000, brics['area']<3)
+
+# find highest average temperature
+temperature[temperature["avg_temp_c"] == temperature["avg_temp_c"].max()]
+
+during_year_thailand = thailand[
+    (thailand["date"] >= "2005-01-01") & (thailand["date"] <= "2010-01-01")
+]
+print(
+    f"The avg. temp of Thailand during 2005-2010 is {round(during_year_thailand['avg_temp_c'].mean(), 2)} Celsius"
+)
+```
