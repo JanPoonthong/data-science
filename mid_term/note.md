@@ -419,7 +419,7 @@ largest = salaries["Salary_USD"].max()
 
 salary_labels = ["entry", "mid", "senior", "exec"]
 salary_ranges = [0, twenty_fifth, salaries_median, seventy_fifth, largest]
-# bins -> find the range and labels -> labels it with salary_labels 
+# bins -> find the range and labels -> labels it with salary_labels
 salaries["salary_level"] = pd.cut(
     salaries["Salary_USD"], bins=salary_ranges, labels=salary_labels
 )
@@ -449,4 +449,3 @@ sns.barplot(
 ```
 
 ![](img19.png)
-
