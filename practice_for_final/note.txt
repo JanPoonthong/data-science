@@ -1,0 +1,50 @@
+
+Part 1
+    Open book -> paper only
+    
+    25 Marks (One mark each) 25 question
+        - MCQ
+        - True/False
+            -> 1 = True, 2 = False
+
+        Correlation
+            - What does this mean?
+
+        One to many
+        
+        Many to Many
+
+        Left, Righ, Inner, Outer
+
+        Concat row, column wise **
+
+        Class inbalance **
+
+        Surprise and unsurpirse **
+
+        matrics stuff
+            - Mean square
+            - R2
+            - RSM
+
+        Confonder **
+
+        Probability **
+            - Dice
+            - Sample 
+            - Central limit theorem
+            - Quantilive and quantitive
+
+Part 2
+    Any files on computer is allowed
+       - Two practical question
+            1. Machine learning
+            2. Data explorating/Visualization
+        
+        - Numpy array
+
+        - How to make dataframe to numpy -> .to_numpy()
+
+        - Do seprate cell for finding best K for KMean
+
+**Download the data set on in MST before in 12:45**
